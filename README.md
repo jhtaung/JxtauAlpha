@@ -11,7 +11,16 @@ Dotnet - new web api project
 - cd api
 - dotnet watch run
 
+Dotnet - EF Core
+- Install-Package Microsoft.EntityFrameworkCore.SqlServer
+- Install-Package Microsoft.EntityFrameworkCore.Design
+- Install-Package Microsoft.EntityFrameworkCore.Tools
+- dotnet ef dbcontext scaffold "Server=BMWCSP_N;Database=PlanData;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Modelsdotnet
+- dotnet ef dbcontext scaffold "Server=BMWCSP_N;Database=PlanData;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Data -t claim
+
 Angular - new project
+- npm install -g @angular/cli@latest
+- ng --version
 - ng new client
 - cd client
 - ng serve
@@ -19,16 +28,11 @@ Angular - new project
 - ng add @angular/cdk
 - ng g s weather –skip-tests
 
-Dotnet - EF Core
-- Install-Package Microsoft.EntityFrameworkCore.SqlServer
-- Install-Package Microsoft.EntityFrameworkCore.Design
-- Install-Package Microsoft.EntityFrameworkCore.Tools
-- dotnet ef dbcontext scaffold "Server=BMWCSP_N;Database=PlanData;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Modelsdotnet
+Angular - ssl
+
 
 Angular - new component
-Ng g c modules/claim
-
-dotnet ef dbcontext scaffold "Server=BMWCSP_N;Database=PlanData;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Data -t claim
+- ng g c modules/claim
 
 VS Code Settings
 - exclude bin, obj
