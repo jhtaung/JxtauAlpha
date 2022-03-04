@@ -9,6 +9,7 @@ import { NavComponent } from './modules/nav/nav.component';
 import { AppealComponent } from './modules/pages/appeal/appeal.component';
 
 import { MaterialModule } from './material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MaterialModule
   ],
   providers: [],

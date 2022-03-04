@@ -27,12 +27,10 @@ Angular - new project
 - ng add @angular/material
 - ng add @angular/cdk
 - ng g s weather –skip-tests
-
-Angular - ssl
-
-
-Angular - new component
 - ng g c modules/claim
+
+Angular - resources
+- http://json2ts.com/
 
 VS Code Settings
 - exclude bin, obj

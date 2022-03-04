@@ -9,6 +9,6 @@ namespace api.Data
         {
         }
 
-        public DbSet<Appeal> Appeals { get; set; } = null!;
+        public DbSet<Appeal> Appeal { get; set; } = null!;
     }
 }
