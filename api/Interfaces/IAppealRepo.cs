@@ -5,6 +5,7 @@ namespace api.Interfaces
 {
     public interface IAppealRepo
     {
-        Task<PagedList<AppealDto>> GetAppealAsync(AppealParams appealParams);
+        Task<PagedList<AppealsListDto>> GetListAsync(AppealParams appealParams);
+        Task<PagedList<UspGetAppealsDto>> GetSprocAsync(AppealParams appealParams);
     }
 }

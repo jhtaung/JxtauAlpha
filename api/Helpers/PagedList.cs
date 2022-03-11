@@ -1,3 +1,4 @@
+using api.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Helpers

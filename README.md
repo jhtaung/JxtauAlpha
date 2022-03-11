@@ -15,8 +15,7 @@ Dotnet - EF Core
 - Install-Package Microsoft.EntityFrameworkCore.SqlServer
 - Install-Package Microsoft.EntityFrameworkCore.Design
 - Install-Package Microsoft.EntityFrameworkCore.Tools
-- dotnet ef dbcontext scaffold "Server=BMWCSP_N;Database=PlanData;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Modelsdotnet
-- dotnet ef dbcontext scaffold "Server=BMWCSP_N;Database=PlanData;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Data -t claim
+- dotnet ef dbcontext scaffold "Server=NEONSDI_N;Database=Appeal;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Entities -t Appeal -t AppealContacts -t AppealStatusLog -t AppealStatusType -t AppellantType -t ContactType -t Department -t MeetingSchedule -t PlanType
 
 Angular - new project
 - npm install -g @angular/cli@latest

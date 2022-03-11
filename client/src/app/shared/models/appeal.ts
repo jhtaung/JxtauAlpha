@@ -1,3 +1,6 @@
+import { Department } from "./department";
+import { PlanType } from "./plantype";
+
 export interface Appeal {
   appealId: number;
   planTypeId: number;
@@ -21,4 +24,6 @@ export interface Appeal {
   updateUser: string;
   updateDate: Date;
   comment: string;
+  department: Department;
+  planType: PlanType;
 }
