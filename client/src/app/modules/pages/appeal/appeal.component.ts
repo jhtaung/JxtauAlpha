@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { AppealService } from 'src/app/core/services/appeal.service';
-import { Appeal } from 'src/app/shared/models/Appeal';
+import { AppealsList } from 'src/app/shared/models/appealsList';
 import { AppealParams } from 'src/app/shared/models/appealParams';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,8 +20,23 @@ export class AppealComponent {
   currentPage = 1;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  displayedColumns: string[] = ['appealId', 'dptCode', 'mpid'];
-  dataSource: MatTableDataSource<Appeal> = new MatTableDataSource();
+  displayedColumns: string[] = [];
+  columns = [
+    { key: 'id', name: 'ID' },
+    { key: 'rap', name: 'RAP' },
+    { key: 'dept', name: 'DEPT' },
+    { key: 'mpid', name: 'MPID' },
+    { key: 'firstName', name: 'First Name' },
+    { key: 'lastName', name: 'Last Name' },
+    // { key: 'meeting', name: 'Meeting' },
+    { key: 'status', name: 'Status' },
+    { key: 'statusUpdateUser', name: 'Updated User' },
+    // { key: 'statusUpdateDate', name: 'Updated Date' },
+    // { key: 'receivedDate', name: 'Received Date' },
+    { key: 'notes', name: 'Notes' },
+  ];
+
+  dataSource: MatTableDataSource<AppealsList> = new MatTableDataSource();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -35,7 +50,21 @@ export class AppealComponent {
   }
 
   ngOnInit(): void {
+    this.setTable();
     this.loadAppeal();
+  }
+
+  setTable() {
+    this.displayedColumns.push('actions');
+    for (var col of this.columns) {
+      if (col.key == 'status') {
+        this.displayedColumns.push('meeting');
+      } else if (col.key == 'notes') {
+        this.displayedColumns.push('statusUpdateDate');
+        this.displayedColumns.push('receivedDate');
+      }
+      this.displayedColumns.push(col.key);
+    }
   }
 
   loadAppeal() {
@@ -43,7 +72,7 @@ export class AppealComponent {
     this.appealParams.pageNumber = this.currentPage;
     this.appealParams.pageSize = this.pageSize;
     this.appealService.setAppealParams(this.appealParams);
-    this.appealService.getAppeal(this.appealParams).subscribe({
+    this.appealService.getAppealsList(this.appealParams).subscribe({
       next: response => {
         this.dataSource.data = response.result;
         setTimeout(() => {

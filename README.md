@@ -26,7 +26,7 @@ Angular - new project
 - ng add @angular/material
 - ng add @angular/cdk
 - ng g s weather –skip-tests
-- ng g c modules/claim
+- ng g c modules/pages/page --module app
 
 Angular - resources
 - http://json2ts.com/

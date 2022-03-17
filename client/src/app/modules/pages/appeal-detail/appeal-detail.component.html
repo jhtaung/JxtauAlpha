@@ -1,0 +1,74 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Appeal Detail {{id}}</h1>
+  <div *ngIf="error.length > 0">{{this.error}}</div>
+  <mat-spinner *ngIf="data == undefined else showAppeal"></mat-spinner>
+  <ng-template #showAppeal>
+    <div fxLayout="row">
+      <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
+        <div fxLayout="row">
+          <div fxFlex="15" class="col-head">Status</div>
+          <div fxFlex="15" class="col-val">
+            {{data.appealStatusLogs[data.appealStatusLogs.length - 1].appealStatusTypeId}}
+          </div>
+          <div fxFlex="15" class="col-head">Meeting Date</div>
+          <div fxFlex="15" class="col-val">
+            {{data.appealStatusLogs[data.appealStatusLogs.length - 1].meetingScheduleId}}
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div fxLayout="row">
+      <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
+        <h2 class="jh-h2 mat-h2">Participant</h2>
+      </mat-card>
+    </div>
+
+    <div fxLayout="row">
+      <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
+        <h2 class="jh-h2 mat-h2">Appeal</h2>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Template</div>
+          <div fxFlex="85" class="col-val">Select Template</div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Subject</div>
+          <div fxFlex="85" class="col-val">{{data.subject}}</div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Appeal</div>
+          <div fxFlex="85" class="col-val" [innerHTML]="data.appealInfo"></div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Executive Summary</div>
+          <div fxFlex="85" class="col-val" [innerHTML]="data.execSummary"></div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Plan Reference</div>
+          <div fxFlex="85" class="col-val" [innerHTML]="data.planReference"></div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Analysis</div>
+          <div fxFlex="85" class="col-val" [innerHTML]="data.analysis"></div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Recommendations</div>
+          <div fxFlex="85" class="col-val" [innerHTML]="data.recommendations"></div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Create User</div>
+          <div fxFlex="15" class="col-val">{{data.createUser}}</div>
+          <div fxFlex="15" class="col-head">Create Date</div>
+          <div fxFlex="15" class="col-val">{{data.createDate | date: 'yyyy-MM-dd h:mm a'}}</div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Update User</div>
+          <div fxFlex="15" class="col-val">{{data.updateUser}}</div>
+          <div fxFlex="15" class="col-head">Update Date</div>
+          <div fxFlex="15" class="col-val">{{data.updateDate | date: 'yyyy-MM-dd h:mm a'}}</div>
+        </div>
+      </mat-card>
+    </div>
+
+  </ng-template>
+</div>

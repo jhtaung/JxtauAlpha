@@ -8,6 +8,8 @@ namespace api.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<Appeal, AppealsDto>();
+
             CreateMap<AppealsListDto, AppealsListDto>();
 
             CreateMap<UspGetAppeals, UspGetAppealsDto>()

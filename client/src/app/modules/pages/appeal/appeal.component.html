@@ -4,19 +4,33 @@
   <div class="mat-elevation-z8">
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="appealId">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let appeal">{{appeal.appealId}}</td>
+      <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+        <th mat-header-cell *matHeaderCellDef> {{column.name}} </th>
+        <td mat-cell *matCellDef="let appeal"> {{appeal[column.key]}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="dptCode">
-        <th mat-header-cell *matHeaderCellDef>Dept</th>
-        <td mat-cell *matCellDef="let appeal">{{appeal.department.departmentCode}}</td>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> actions </th>
+        <td mat-cell *matCellDef="let appeal">
+          <a mat-raised-button color="primary" [routerLink]="['/appeal/', appeal.id]">
+            View
+          </a>
+        </td>
       </ng-container>
 
-      <ng-container matColumnDef="mpid">
-        <th mat-header-cell *matHeaderCellDef>MPID</th>
-        <td mat-cell *matCellDef="let appeal">{{appeal.mpid}}</td>
+      <ng-container matColumnDef="meeting">
+        <th mat-header-cell *matHeaderCellDef> Meetings </th>
+        <td mat-cell *matCellDef="let appeal">{{appeal.meeting | date: 'yyyy-MM-dd h:mm a'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="statusUpdateDate">
+        <th mat-header-cell *matHeaderCellDef> Update Date </th>
+        <td mat-cell *matCellDef="let appeal">{{appeal.statusUpdateDate | date: 'yyyy-MM-dd h:mm a'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="receivedDate">
+        <th mat-header-cell *matHeaderCellDef> Received Date </th>
+        <td mat-cell *matCellDef="let appeal">{{appeal.receivedDate | date: 'yyyy-MM-dd h:mm a'}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -5,18 +5,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { NavComponent } from './modules/nav/nav.component';
-import { AppealComponent } from './modules/pages/appeal/appeal.component';
-
 import { MaterialModule } from './material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+
+import { NavComponent } from './modules/nav/nav.component';
+import { AppealComponent } from './modules/pages/appeal/appeal.component';
+import { HomeComponent } from './modules/pages/home/home.component';
+import { AppealDetailComponent } from './modules/pages/appeal-detail/appeal-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    AppealComponent
+    AppealComponent,
+    HomeComponent,
+    AppealDetailComponent
   ],
   imports: [
     AppRoutingModule,

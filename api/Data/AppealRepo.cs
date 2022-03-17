@@ -17,6 +17,21 @@ namespace api.Data
             _mapper = mapper;
         }
 
+        public async Task<PagedList<AppealsDto>> GetAsync(AppealParams appealParams)
+        {
+            var query = _context.Appeals.AsQueryable();
+
+            query = query.Where(x => x.AppealId == appealParams.Id);
+
+            query = query.OrderByDescending(x => x.AppealId);
+
+            return await PagedList<AppealsDto>.CreateAsync(
+                query.ProjectTo<AppealsDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+                appealParams.PageNumber, 
+                appealParams.PageSize
+            );
+        }
+
         public async Task<PagedList<AppealsListDto>> GetListAsync(AppealParams appealParams)
         {
             /*
@@ -53,10 +68,13 @@ namespace api.Data
                     Mpid = appeal.Mpid,
                     FirstName = contact.FirstName,
                     LastName = contact.LastName,
+                    /*
                     Meeting = (meeting.MeetingTime == null 
                         ? meeting.MeetingDate 
                         : meeting.MeetingDate.Add(meeting.MeetingTime.Value.TimeOfDay)
                     ).ToString(),
+                    */
+                    Meeting = (meeting.MeetingTime ?? meeting.MeetingDate),
                     Status = statusType.AppealStatusTypeDescription,
                     Notes = status.Notes,
                     StatusUpdateUser = status.UpdateUser,

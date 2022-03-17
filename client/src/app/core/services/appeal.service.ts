@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Appeal } from 'src/app/shared/models/Appeal';
+import { AppealsList } from 'src/app/shared/models/appealsList';
 import { AppealParams } from 'src/app/shared/models/appealParams';
 import { environment } from 'src/environments/environment';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
+import { Appeal } from 'src/app/shared/models/appeals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppealService {
   baseUrl: string = environment.apiUrl;
-  appeal!: Appeal;
+  appeal!: AppealsList;
   appealParams: AppealParams = new AppealParams();
 
   constructor(private http: HttpClient) { }
@@ -24,9 +25,24 @@ export class AppealService {
     this.appealParams = params;
   }
 
-  getAppeal(appealParams: AppealParams) {
+  getAppealsList(appealParams: AppealParams) {
     let params = getPaginationHeaders(appealParams.pageNumber, appealParams.pageSize);
     params = params.append('rap', appealParams.rap);
-    return getPaginatedResult<Appeal[]>(this.baseUrl + 'appeal', params, this.http).pipe(map(response => { return response; }));
+    return getPaginatedResult<AppealsList[]>(
+      this.baseUrl + 'Appeals/List', params, this.http)
+        .pipe(map(response => {
+          response.result.map(x => {
+            x.meeting = new Date(x.meeting);
+            return x;
+          });
+          return response;
+        }));
+  }
+
+  getAppeals(appealParams: AppealParams) {
+    let params = getPaginationHeaders(appealParams.pageNumber, appealParams.pageSize);
+    params = params.append('id', appealParams.id);
+    return getPaginatedResult<Appeal[]>(
+      this.baseUrl + 'Appeals', params, this.http).pipe(map(x => x));
   }
 }

@@ -14,6 +14,14 @@ namespace api.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AppealsListDto>>> Get([FromQuery]AppealParams appealParams)
+        {
+            var appeals = await _unitOfWork.AppealRepo.GetAsync(appealParams);
+            Response.AddPaginationHeader(appeals.CurrentPage, appeals.PageSize, appeals.TotalCount, appeals.TotalPages);
+            return Ok(appeals);
+        }
+
         [HttpGet("List")]
         public async Task<ActionResult<IEnumerable<AppealsListDto>>> GetList([FromQuery]AppealParams appealParams)
         {

@@ -9,8 +9,12 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
-  menuItems: string[] = ['appeal'];
+  title: string = "Benefits Appeal Committee";
+  menuItems = [
+    { key: '', name: 'Home' },
+    { key: 'appeal', name: 'Appeal' },
+    { key: 'appeal/1', name: 'Appeal Detail' },
+  ];
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),

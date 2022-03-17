@@ -8,7 +8,7 @@ namespace api.DTOs
         public string Mpid { get; set; } = null!;
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? Meeting { get; set; }
+        public DateTime? Meeting { get; set; }
         public string? Status { get; set; }
         public string? Notes { get; set; }
         public string? StatusUpdateUser { get; set; }
