@@ -1,26 +1,26 @@
 ﻿namespace api.Entities
 {
-    public partial class AppellantType
+    public partial class EventType
     {
-        public AppellantType()
+        public EventType()
         {
-            AppealContacts = new HashSet<AppealContact>();
+            AppealEvents = new HashSet<AppealEvent>();
         }
 
         /// <summary>
-        /// Unique identifier for the appellant type
+        /// Unique identifier for event type
         /// </summary>
-        public int AppellantTypeId { get; set; }
+        public int EventTypeId { get; set; }
         /// <summary>
-        /// Appellant type name
+        /// Event type description: Note, Timeline, etc
         /// </summary>
-        public string? AppellantTypeName { get; set; }
+        public string EventTypeDescription { get; set; } = null!;
         public string CreateUser { get; set; } = null!;
         public DateTime CreateDate { get; set; }
         public string UpdateUser { get; set; } = null!;
         public DateTime UpdateDate { get; set; }
         public string? Comment { get; set; }
 
-        public virtual ICollection<AppealContact> AppealContacts { get; set; }
+        public virtual ICollection<AppealEvent> AppealEvents { get; set; }
     }
 }

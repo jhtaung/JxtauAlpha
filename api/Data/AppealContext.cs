@@ -15,14 +15,23 @@ namespace api.Data
         }
 
         public virtual DbSet<Appeal> Appeals { get; set; } = null!;
+        public virtual DbSet<AppealClaim> AppealClaims { get; set; } = null!;
+        public virtual DbSet<AppealClaimDetail> AppealClaimDetails { get; set; } = null!;
         public virtual DbSet<AppealContact> AppealContacts { get; set; } = null!;
+        public virtual DbSet<AppealEvent> AppealEvents { get; set; } = null!;
+        public virtual DbSet<AppealLog> AppealLogs { get; set; } = null!;
+        public virtual DbSet<AppealMemo> AppealMemos { get; set; } = null!;
         public virtual DbSet<AppealStatusLog> AppealStatusLogs { get; set; } = null!;
         public virtual DbSet<AppealStatusType> AppealStatusTypes { get; set; } = null!;
         public virtual DbSet<AppellantType> AppellantTypes { get; set; } = null!;
         public virtual DbSet<ContactType> ContactTypes { get; set; } = null!;
         public virtual DbSet<Department> Departments { get; set; } = null!;
+        public virtual DbSet<EventType> EventTypes { get; set; } = null!;
         public virtual DbSet<MeetingSchedule> MeetingSchedules { get; set; } = null!;
         public virtual DbSet<PlanType> PlanTypes { get; set; } = null!;
+        public virtual DbSet<Template> Templates { get; set; } = null!;
+
+        // SPROC
         public virtual DbSet<UspGetAppeals> Usp_GetAppeals { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -141,6 +150,168 @@ namespace api.Data
                     .HasConstraintName("FK_Appeal_PlanType");
             });
 
+            modelBuilder.Entity<AppealClaim>(entity =>
+            {
+                entity.ToTable("AppealClaim", "dbo");
+
+                entity.HasIndex(e => new { e.AppealId, e.ClaimId }, "IX_AppealClaim_AppealID_ClaimID")
+                    .IsUnique();
+
+                entity.Property(e => e.AppealClaimId)
+                    .HasColumnName("AppealClaimID")
+                    .HasComment("Unique ID for table");
+
+                entity.Property(e => e.AppealId)
+                    .HasColumnName("AppealID")
+                    .HasComment("Appeal ID Claim is linked to");
+
+                entity.Property(e => e.Billed)
+                    .HasColumnType("money")
+                    .HasComment("How much the Provider is billing");
+
+                entity.Property(e => e.ClaimId)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("ClaimID")
+                    .HasComment("Claim ID associated with the appeal");
+
+                entity.Property(e => e.ClaimStatus)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasComment("Status of the claim in QNXT");
+
+                entity.Property(e => e.Coballowed)
+                    .HasColumnType("money")
+                    .HasColumnName("COBAllowed")
+                    .HasComment("Amount of Co ordination of Benefits allowed");
+
+                entity.Property(e => e.Cobpaid)
+                    .HasColumnType("money")
+                    .HasColumnName("COBPaid")
+                    .HasComment("Amount of Coordination of Beefits paid");
+
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.PlanPaid).HasColumnType("money");
+
+                entity.Property(e => e.SecondaryId)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("SecondaryID");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnType("datetime")
+                    .HasComment("Start date of the claim");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.HasOne(d => d.Appeal)
+                    .WithMany(p => p.AppealClaims)
+                    .HasForeignKey(d => d.AppealId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppealClaim_Appeal");
+            });
+
+            modelBuilder.Entity<AppealClaimDetail>(entity =>
+            {
+                entity.HasKey(e => e.AppealClaimDetailsId)
+                    .HasName("PK_AppealClaimsDetail");
+
+                entity.ToTable("AppealClaimDetails", "dbo");
+
+                entity.Property(e => e.AppealClaimDetailsId)
+                    .HasColumnName("AppealClaimDetailsID")
+                    .HasComment("Unique ID for table");
+
+                entity.Property(e => e.AppealClaimId)
+                    .HasColumnName("AppealClaimID")
+                    .HasComment("Claim ID associated with the Appeal");
+
+                entity.Property(e => e.ClaimLine).HasComment("Claim Line associated with the Claim");
+
+                entity.Property(e => e.CoPay)
+                    .HasColumnType("money")
+                    .HasComment("Amount of Co-Pay owed");
+
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.PatientResp)
+                    .HasColumnType("money")
+                    .HasComment("Amount of patient responsibility");
+
+                entity.Property(e => e.PlanAllowed).HasColumnType("money");
+
+                entity.Property(e => e.PlanBenefit).HasColumnType("money");
+
+                entity.Property(e => e.ProvDiscount).HasColumnType("money");
+
+                entity.Property(e => e.ServiceCode)
+                    .HasMaxLength(6)
+                    .IsUnicode(false)
+                    .IsFixedLength()
+                    .HasComment("Service code of the service provided for the claim");
+
+                entity.Property(e => e.ServiceDescription)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasComment("Description of the service provided");
+
+                entity.Property(e => e.ServiceEndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ServiceStartDate)
+                    .HasColumnType("datetime")
+                    .HasComment("Date of service for the claim");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasComment("Status of the claim line");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.HasOne(d => d.AppealClaim)
+                    .WithMany(p => p.AppealClaimDetails)
+                    .HasForeignKey(d => d.AppealClaimId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppealClaimDetails_AppealClaim");
+            });
+
             modelBuilder.Entity<AppealContact>(entity =>
             {
                 entity.ToTable("AppealContacts", "dbo");
@@ -244,6 +415,150 @@ namespace api.Data
                     .HasForeignKey(d => d.ContactTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AppealContacts_ContactType");
+            });
+
+            modelBuilder.Entity<AppealEvent>(entity =>
+            {
+                entity.ToTable("AppealEvent", "dbo");
+
+                entity.Property(e => e.AppealEventId)
+                    .HasColumnName("AppealEventID")
+                    .HasComment("Unique identifier for Appeal Event");
+
+                entity.Property(e => e.AppealId)
+                    .HasColumnName("AppealID")
+                    .HasComment("ID of the appeal");
+
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.EventDate)
+                    .HasColumnType("datetime")
+                    .HasComment("Date of the event");
+
+                entity.Property(e => e.EventText)
+                    .HasMaxLength(4000)
+                    .IsUnicode(false)
+                    .HasComment("Information about the event");
+
+                entity.Property(e => e.EventTypeId)
+                    .HasColumnName("EventTypeID")
+                    .HasComment("Type of event the data is for, Timeline, Note, etc");
+
+                entity.Property(e => e.PageNumber)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.HasOne(d => d.Appeal)
+                    .WithMany(p => p.AppealEvents)
+                    .HasForeignKey(d => d.AppealId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppealEvent_Appeal");
+
+                entity.HasOne(d => d.EventType)
+                    .WithMany(p => p.AppealEvents)
+                    .HasForeignKey(d => d.EventTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppealEvent_EventType");
+            });
+
+            modelBuilder.Entity<AppealLog>(entity =>
+            {
+                entity.ToTable("AppealLog", "dbo");
+
+                entity.Property(e => e.AppealLogId).HasColumnName("AppealLogID");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ProcessName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+            });
+
+            modelBuilder.Entity<AppealMemo>(entity =>
+            {
+                entity.ToTable("AppealMemo", "dbo");
+
+                entity.Property(e => e.AppealMemoId).HasColumnName("AppealMemoID");
+
+                entity.Property(e => e.AppealId).HasColumnName("AppealID");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.MemoDate).HasColumnType("datetime");
+
+                entity.Property(e => e.MemoFrom)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MemoSubject)
+                    .HasMaxLength(2048)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MemoText)
+                    .HasMaxLength(8000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.HasOne(d => d.Appeal)
+                    .WithMany(p => p.AppealMemos)
+                    .HasForeignKey(d => d.AppealId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AppealMemo_Appeal");
             });
 
             modelBuilder.Entity<AppealStatusLog>(entity =>
@@ -477,6 +792,43 @@ namespace api.Data
                     .HasDefaultValueSql("(suser_sname())");
             });
 
+            modelBuilder.Entity<EventType>(entity =>
+            {
+                entity.ToTable("EventType", "dbo");
+
+                entity.Property(e => e.EventTypeId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("EventTypeID")
+                    .HasComment("Unique identifier for event type");
+
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.EventTypeDescription)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasComment("Event type description: Note, Timeline, etc");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+            });
+
             modelBuilder.Entity<MeetingSchedule>(entity =>
             {
                 entity.ToTable("MeetingSchedule", "dbo");
@@ -558,7 +910,64 @@ namespace api.Data
                     .HasDefaultValueSql("(suser_sname())");
             });
 
-            modelBuilder.Entity<UspGetAppeals>().HasNoKey();
+            modelBuilder.Entity<Template>(entity =>
+            {
+                entity.ToTable("Template", "dbo");
+
+                entity.Property(e => e.TemplateId)
+                    .HasColumnName("TemplateID")
+                    .HasComment("Unique identifier for template");
+
+                entity.Property(e => e.AppealInfoTemplate)
+                    .HasMaxLength(1000)
+                    .HasComment("General information about the appeal");
+
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.DepartmentId)
+                    .HasColumnName("DepartmentID")
+                    .HasComment("Dept ID the template is for");
+
+                entity.Property(e => e.ExecSummaryTemplate)
+                    .HasMaxLength(4096)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PlanReferenceTemplate).HasComment("References parts of the plan documents the appeal pertains to");
+
+                entity.Property(e => e.RecommendationsTemplate)
+                    .HasMaxLength(2048)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SubjectTemplate)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasComment("Subject the template addresses");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.UpdateUser)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.Templates)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .HasConstraintName("FK_Template_Department");
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

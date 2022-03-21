@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace api.Entities
+﻿namespace api.Entities
 {
     public partial class Appeal
     {
         public Appeal()
         {
+            AppealClaims = new HashSet<AppealClaim>();
             AppealContacts = new HashSet<AppealContact>();
+            AppealEvents = new HashSet<AppealEvent>();
+            AppealMemos = new HashSet<AppealMemo>();
             AppealStatusLogs = new HashSet<AppealStatusLog>();
         }
 
@@ -84,7 +84,10 @@ namespace api.Entities
 
         public virtual Department Department { get; set; } = null!;
         public virtual PlanType? PlanType { get; set; }
+        public virtual ICollection<AppealClaim> AppealClaims { get; set; }
         public virtual ICollection<AppealContact> AppealContacts { get; set; }
+        public virtual ICollection<AppealEvent> AppealEvents { get; set; }
+        public virtual ICollection<AppealMemo> AppealMemos { get; set; }
         public virtual ICollection<AppealStatusLog> AppealStatusLogs { get; set; }
     }
 }

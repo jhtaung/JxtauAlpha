@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace api.Entities
+﻿namespace api.Entities
 {
     public partial class Department
     {
         public Department()
         {
             Appeals = new HashSet<Appeal>();
+            Templates = new HashSet<Template>();
         }
 
         /// <summary>
@@ -37,5 +35,6 @@ namespace api.Entities
         public string? Comment { get; set; }
 
         public virtual ICollection<Appeal> Appeals { get; set; }
+        public virtual ICollection<Template> Templates { get; set; }
     }
 }

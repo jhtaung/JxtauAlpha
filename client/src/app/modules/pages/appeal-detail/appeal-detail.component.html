@@ -15,6 +15,13 @@
             {{data.appealStatusLogs[data.appealStatusLogs.length - 1].meetingScheduleId}}
           </div>
         </div>
+
+        <div fxLayout="row">
+          <div fxFlex="15" class="col-head">Department</div>
+          <div fxFlex="15" class="col-val">{{data.department.departmentCode}}</div>
+          <div fxFlex="15" class="col-head">Plan</div>
+          <div fxFlex="15" class="col-val">{{data.planType.planTypeName}}</div>
+        </div>
       </mat-card>
     </div>
 
