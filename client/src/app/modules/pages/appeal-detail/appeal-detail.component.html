@@ -8,19 +8,19 @@
         <div fxLayout="row">
           <div fxFlex="15" class="col-head">Status</div>
           <div fxFlex="15" class="col-val">
-            {{data.appealStatusLogs[data.appealStatusLogs.length - 1].appealStatusTypeId}}
+            {{data.status}}
           </div>
           <div fxFlex="15" class="col-head">Meeting Date</div>
           <div fxFlex="15" class="col-val">
-            {{data.appealStatusLogs[data.appealStatusLogs.length - 1].meetingScheduleId}}
+            {{data.meetingDate | date: 'yyyy-MM-dd h:mm a'}}
           </div>
         </div>
 
         <div fxLayout="row">
           <div fxFlex="15" class="col-head">Department</div>
-          <div fxFlex="15" class="col-val">{{data.department.departmentCode}}</div>
+          <div fxFlex="15" class="col-val">{{data.department}}</div>
           <div fxFlex="15" class="col-head">Plan</div>
-          <div fxFlex="15" class="col-val">{{data.planType.planTypeName}}</div>
+          <div fxFlex="15" class="col-val">{{data.planType}}</div>
         </div>
       </mat-card>
     </div>
@@ -28,6 +28,55 @@
     <div fxLayout="row">
       <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
         <h2 class="jh-h2 mat-h2">Participant</h2>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">MPID</div>
+          <div fxFlex="15" class="col-val">{{data.mpid}}</div>
+          <div fxFlex="15" class="col-head">SSN</div>
+          <div fxFlex="15" class="col-val"></div>
+          <div fxFlex="15" class="col-head">DOB</div>
+          <div fxFlex="15" class="col-val"></div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">First Name</div>
+          <div fxFlex="15" class="col-val"></div>
+          <div fxFlex="15" class="col-head">Last Name</div>
+          <div fxFlex="15" class="col-val"></div>
+          <div fxFlex="15" class="col-head">RAP</div>
+          <div fxFlex="15" class="col-val">{{data.rap}}</div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Address</div>
+          <div fxFlex="30" class="col-val">{{data.addressLine1}}</div>
+          <div fxFlex="30" class="col-val">{{data.addressLine2}}</div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">City</div>
+          <div fxFlex="15" class="col-val">{{data.city}}</div>
+          <div fxFlex="15" class="col-head">State</div>
+          <div fxFlex="15" class="col-val">{{data.state}}</div>
+          <div fxFlex="15" class="col-head">Zip Code</div>
+          <div fxFlex="15" class="col-val">{{data.zip}}</div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div fxLayout="row">
+      <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
+        <h2 class="jh-h2 mat-h2">Appellant</h2>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Appellant</div>
+          <div fxFlex="15" class="col-val">{{data.appellant}}</div>
+          <div fxFlex="15" class="col-head">First Name</div>
+          <div fxFlex="15" class="col-val">{{data.firstName}}</div>
+          <div fxFlex="15" class="col-head">Last Name</div>
+          <div fxFlex="15" class="col-val">{{data.lastName}}</div>
+        </div>
+        <div fxLayout="row" class="jh-row">
+          <div fxFlex="15" class="col-head">Received Date</div>
+          <div fxFlex="15" class="col-val">{{data.appealReceivedDate | date: 'yyyy-MM-dd h:mm a'}}</div>
+          <div fxFlex="15" class="col-head">Expiration Date</div>
+          <div fxFlex="15" class="col-val">{{data.expirationDate | date: 'yyyy-MM-dd h:mm a'}}</div>
+        </div>
       </mat-card>
     </div>
 

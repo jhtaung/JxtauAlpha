@@ -19,11 +19,79 @@ namespace api.Data
 
         public async Task<PagedList<AppealsDto>> GetAsync(AppealParams appealParams)
         {
-            var query = _context.Appeals.AsQueryable();
+            var query = 
+                from appeal in _context.Appeals
+                from log in _context.AppealStatusLogs
+                    .Where(x => x.AppealId == appeal.AppealId)
+                    .OrderByDescending(x => x.AppealId)
+                    .Take(1)
+                    .DefaultIfEmpty()
+                from status in _context.AppealStatusTypes
+                    .Where(x => x.AppealStatusTypeId == log.AppealStatusTypeId)
+                    .DefaultIfEmpty()
+                from meeting in _context.MeetingSchedules
+                    .Where(x => x.MeetingScheduleId == log.MeetingScheduleId)
+                    .DefaultIfEmpty()
+                from plan in _context.PlanTypes
+                    .Where(x => x.PlanTypeId == appeal.PlanTypeId)
+                    .DefaultIfEmpty()
+                from department in _context.Departments
+                    .Where(x => x.DepartmentId == appeal.DepartmentId)
+                    .DefaultIfEmpty()
+                from contact in _context.AppealContacts
+                    .Where(x => x.ContactTypeId == 1)
+                    .Where(x => x.AppealId == appeal.AppealId)
+                    .DefaultIfEmpty()
+                from contactType in _context.ContactTypes
+                    .Where(x => x.ContactTypeId == contact.ContactTypeId)
+                    .DefaultIfEmpty()
+                select new AppealsDto
+                {
+                    Id = appeal.AppealId,
+                    Mpid = appeal.Mpid,
+                    Subject = appeal.Subject,
+                    Comment = appeal.Comment,
+                    AppealInfo = appeal.AppealInfo,
+                    PlanReference = appeal.PlanReference,
+                    ExecSummary = appeal.ExecSummary,
+                    AdditionalInfo = appeal.AdditionalInfo,
+                    Recommendations = appeal.Recommendations,
+                    Analysis = appeal.Analysis,
+                    SupportingDocs = appeal.SupportingDocs,
+                    CreateUser = appeal.CreateUser,
+                    UpdateUser = appeal.UpdateUser,
+                    Lock = appeal.Lock,
+                    Rap = appeal.Rap,
+                    IsPrecedentEstablished = appeal.IsPrecedentEstablished,
+                    AppealReceivedDate = appeal.AppealReceivedDate,
+                    ExpirationDate = appeal.ExpirationDate,
+                    CreateDate = appeal.CreateDate,
+                    UpdateDate = appeal.UpdateDate,
+                    Status = status.AppealStatusTypeDescription,
+                    MeetingDate = meeting.MeetingDate,
+                    PlanType = plan.PlanTypeName,
+                    Department = department.DepartmentCode,
+                    Appellant = contactType.ContactTypeName,
+                    FirstName = contact.FirstName,
+                    LastName = contact.LastName,
+                    AddressLine1 = contact.AddressLine1,
+                    AddressLine2 = contact.AddressLine2,
+                    City = contact.City,
+                    State = contact.State,
+                    Zip = contact.Zip
+                };
 
-            query = query.Where(x => x.AppealId == appealParams.Id);
+            query = query.AsQueryable();
 
-            query = query.OrderByDescending(x => x.AppealId);
+            if (appealParams.Id != null) {
+                query = query.Where(x => x.Id == appealParams.Id);
+            }
+
+            if (appealParams.Rap != null) { 
+                query = query.Where(x => x.Rap == appealParams.Rap); 
+            }
+
+            query = query.OrderByDescending(x => x.Id);
 
             return await PagedList<AppealsDto>.CreateAsync(
                 query.ProjectTo<AppealsDto>(_mapper.ConfigurationProvider).AsNoTracking(),

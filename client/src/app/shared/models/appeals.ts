@@ -1,74 +1,8 @@
-export interface Department {
-  departmentId: number;
-  departmentCode: string;
-  departmentName: string;
-  presenterName: string;
-  presenterTitle: string;
-  createUser: string;
-  createDate: Date;
-  updateUser: string;
-  updateDate: Date;
-  comment: string;
-  appeals: any[];
-}
-
-export interface PlanType {
-  planTypeId: number;
-  planTypeName: string;
-  createUser: string;
-  createDate: Date;
-  updateUser: string;
-  updateDate: Date;
-  comment: string;
-  appeals: any[];
-}
-
-export interface AppealContact {
-  appealContactId: number;
-  contactTypeId: number;
-  appealId: number;
-  appellantTypeId: number;
-  firstName: string;
-  middleName?: any;
-  lastName: string;
-  companyName?: any;
-  addressLine1: string;
-  addressLine2?: any;
-  city: string;
-  state: string;
-  zip: string;
-  providerId?: any;
-  createDate: Date;
-  createUser: string;
-  updateDate: Date;
-  updateUser: string;
-  appeal?: any;
-  appellantType?: any;
-  contactType?: any;
-}
-
-export interface AppealStatusLog {
-  appealStatusLogId: number;
-  appealId: number;
-  meetingScheduleId: number;
-  appealStatusTypeId: number;
-  notes?: any;
-  createUser: string;
-  createDate: Date;
-  updateUser: string;
-  updateDate: Date;
-  comment?: any;
-  appeal?: any;
-  appealStatusType?: any;
-  meetingSchedule?: any;
-}
-
-export interface Appeal {
-  appealId: number;
-  planTypeId: number;
-  departmentId: number;
+export interface Appeals {
+  id: number;
   mpid: string;
   subject: string;
+  comment?: any;
   appealInfo: string;
   planReference: string;
   execSummary: string;
@@ -76,18 +10,25 @@ export interface Appeal {
   recommendations: string;
   analysis?: any;
   supportingDocs?: any;
+  createUser: string;
+  updateUser: string;
   lock: boolean;
   rap: boolean;
   isPrecedentEstablished: boolean;
   appealReceivedDate: Date;
   expirationDate: Date;
-  createUser: string;
   createDate: Date;
-  updateUser: string;
   updateDate: Date;
-  comment?: any;
-  department: Department;
-  planType: PlanType;
-  appealContacts: AppealContact[];
-  appealStatusLogs: AppealStatusLog[];
+  status: string;
+  meetingDate: Date;
+  planType: string;
+  department: string;
+  appellant: string;
+  firstName: string;
+  lastName: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  zip: string;
 }

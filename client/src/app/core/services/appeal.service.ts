@@ -5,7 +5,7 @@ import { AppealsList } from 'src/app/shared/models/appealsList';
 import { AppealParams } from 'src/app/shared/models/appealParams';
 import { environment } from 'src/environments/environment';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
-import { Appeal } from 'src/app/shared/models/appeals';
+import { Appeals } from 'src/app/shared/models/appeals';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class AppealService {
   getAppeals(appealParams: AppealParams) {
     let params = getPaginationHeaders(appealParams.pageNumber, appealParams.pageSize);
     params = params.append('id', appealParams.id);
-    return getPaginatedResult<Appeal[]>(
+    return getPaginatedResult<Appeals[]>(
       this.baseUrl + 'Appeals', params, this.http).pipe(map(x => x));
   }
 }

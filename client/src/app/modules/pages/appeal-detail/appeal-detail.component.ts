@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppealService } from 'src/app/core/services/appeal.service';
 import { AppealParams } from 'src/app/shared/models/appealParams';
-import { Appeal } from 'src/app/shared/models/appeals';
+import { Appeals } from 'src/app/shared/models/appeals';
 
 @Component({
   selector: 'app-appeal-detail',
@@ -11,16 +11,14 @@ import { Appeal } from 'src/app/shared/models/appeals';
 })
 export class AppealDetailComponent implements OnInit {
   id: number = 0;
-  data!: Appeal;
-  appealParams: AppealParams;
+  data!: Appeals;
+  appealParams: AppealParams = new AppealParams();
   error: string = "";
 
   constructor(
     private route: ActivatedRoute,
     private appealService: AppealService
-  ) {
-    this.appealParams = this.appealService.getAppealParams();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadDetail();
@@ -33,7 +31,7 @@ export class AppealDetailComponent implements OnInit {
       this.appealParams.id = this.id;
       this.appealService.getAppeals(this.appealParams).subscribe({
         next: response => {
-          console.log(response);
+          console.log('success', response);
 
           var appeals = response.result;
           if (appeals.length == 0) {
@@ -42,10 +40,10 @@ export class AppealDetailComponent implements OnInit {
           }
 
           this.data = appeals[0];
-          console.log(this.data);
+          // console.log('success', this.data);
         },
         error: error => {
-          console.log(error);
+          console.log('error', error);
         }
       });
     });

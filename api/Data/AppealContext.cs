@@ -36,6 +36,8 @@ namespace api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UspGetAppeals>().HasNoKey();
+
             modelBuilder.Entity<Appeal>(entity =>
             {
                 entity.ToTable("Appeal", "dbo");
