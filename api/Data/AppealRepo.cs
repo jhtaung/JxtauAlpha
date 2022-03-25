@@ -102,16 +102,6 @@ namespace api.Data
 
         public async Task<PagedList<AppealsListDto>> GetListAsync(AppealParams appealParams)
         {
-            /*
-            // .Where(x => x.AppealId == appeal.AppealId)
-            // .OrderByDescending(x => x.AppealStatusLogId)
-            // .Take(1)
-            join status in _context.AppealStatusLogs 
-                on appeal.AppealId equals status.AppealId
-            join statusType in _context.AppealStatusTypes
-                on status.AppealStatusTypeId equals statusType.AppealStatusTypeId
-            */
-
             var query = 
                 from appeal in _context.Appeals
                 let status = _context.AppealStatusLogs
@@ -136,12 +126,6 @@ namespace api.Data
                     Mpid = appeal.Mpid,
                     FirstName = contact.FirstName,
                     LastName = contact.LastName,
-                    /*
-                    Meeting = (meeting.MeetingTime == null 
-                        ? meeting.MeetingDate 
-                        : meeting.MeetingDate.Add(meeting.MeetingTime.Value.TimeOfDay)
-                    ).ToString(),
-                    */
                     Meeting = (meeting.MeetingTime ?? meeting.MeetingDate),
                     Status = statusType.AppealStatusTypeDescription,
                     Notes = status.Notes,

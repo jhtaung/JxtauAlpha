@@ -40,3 +40,7 @@ Git
 - git status
 - git init
 - dotnet new gitignore
+
+WYSIWYG 
+- Tiny MCE
+- Angular Editor

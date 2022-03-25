@@ -1,8 +1,8 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Appeal Detail {{id}}</h1>
+  <h1 class="mat-h1">Appeal {{id}}</h1>
   <div *ngIf="error.length > 0">{{this.error}}</div>
-  <mat-spinner *ngIf="data == undefined else showAppeal"></mat-spinner>
-  <ng-template #showAppeal>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div *ngIf="data !== undefined">
     <div fxLayout="row">
       <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
         <div fxLayout="row">
@@ -125,6 +125,5 @@
         </div>
       </mat-card>
     </div>
-
-  </ng-template>
+  </div>
 </div>

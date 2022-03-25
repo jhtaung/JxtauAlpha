@@ -12,7 +12,10 @@ export class NavComponent implements OnInit {
   title: string = "Benefits Appeal Committee";
   menuItems = [
     { key: '', name: 'Home' },
-    { key: 'appeal', name: 'Appeals' }
+    { key: 'appeals', name: 'Appeals' },
+    { key: 'templates', name: 'Templates' },
+    { key: 'departments', name: 'Departments' },
+    { key: 'meetings', name: 'Meetings' }
   ];
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

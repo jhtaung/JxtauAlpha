@@ -14,7 +14,7 @@ namespace api.Data
         }
 
         public IAppealRepo AppealRepo => new AppealRepo(_context, _mapper);
-
+        public ITemplateRepo TemplateRepo => new TemplateRepo(_context, _mapper);
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

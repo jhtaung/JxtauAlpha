@@ -14,6 +14,15 @@ namespace api.Helpers
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.AppealId))
                 .ForMember(d => d.Dept, o => o.MapFrom(s => s.DepartmentCode))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.AppealStatusTypeDescription));
+
+            CreateMap<Template, TemplateDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(x => x.TemplateId))
+                .ForMember(d => d.Department, o => o.MapFrom(x => x.Department!.DepartmentName));
+
+            CreateMap<Department, DepartmentDto>()
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.DepartmentId))
+                .ForMember(d => d.Code, o => o.MapFrom(s => s.DepartmentCode))
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.DepartmentName));
         }
     }
 }

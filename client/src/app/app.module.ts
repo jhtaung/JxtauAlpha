@@ -13,20 +13,30 @@ import { NavComponent } from './modules/nav/nav.component';
 import { AppealComponent } from './modules/pages/appeal/appeal.component';
 import { HomeComponent } from './modules/pages/home/home.component';
 import { AppealDetailComponent } from './modules/pages/appeal-detail/appeal-detail.component';
+import { NotFoundComponent } from './modules/pages/not-found/not-found.component';
+import { TemplateComponent } from './modules/pages/template/template.component';
+import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorComponent } from './modules/editor/editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     AppealComponent,
+    AppealDetailComponent,
     HomeComponent,
-    AppealDetailComponent
+    NotFoundComponent,
+    TemplateComponent,
+    TemplateDetailComponent,
+    EditorComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    EditorModule,
     MaterialModule
   ],
   providers: [

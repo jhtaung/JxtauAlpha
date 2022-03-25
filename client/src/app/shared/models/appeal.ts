@@ -1,4 +1,4 @@
-export interface Appeals {
+export interface Appeal {
   id: number;
   mpid: string;
   subject: string;

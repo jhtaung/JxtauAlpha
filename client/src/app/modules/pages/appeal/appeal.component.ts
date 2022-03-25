@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { AppealService } from 'src/app/core/services/appeal.service';
-import { AppealsList } from 'src/app/shared/models/appealsList';
+import { AppealList } from 'src/app/shared/models/appealList';
 import { AppealParams } from 'src/app/shared/models/appealParams';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +14,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class AppealComponent {
   isLoading = false;
-  appealParams: AppealParams;
   totalRows = 0;
   pageSize = 10;
   currentPage = 1;
@@ -22,21 +21,23 @@ export class AppealComponent {
 
   displayedColumns: string[] = [];
   columns = [
-    { key: 'id', name: 'ID' },
-    { key: 'rap', name: 'RAP' },
-    { key: 'dept', name: 'DEPT' },
-    { key: 'mpid', name: 'MPID' },
-    { key: 'firstName', name: 'First Name' },
-    { key: 'lastName', name: 'Last Name' },
-    // { key: 'meeting', name: 'Meeting' },
-    { key: 'status', name: 'Status' },
-    { key: 'statusUpdateUser', name: 'Updated User' },
-    // { key: 'statusUpdateDate', name: 'Updated Date' },
-    // { key: 'receivedDate', name: 'Received Date' },
-    { key: 'notes', name: 'Notes' },
+    { key: 'actions', name: 'Actions', attr: 'actions' },
+    { key: 'id', name: 'ID', attr: 'string' },
+    { key: 'rap', name: 'RAP', attr: 'string' },
+    { key: 'dept', name: 'DEPT', attr: 'string' },
+    { key: 'mpid', name: 'MPID', attr: 'string' },
+    { key: 'firstName', name: 'First Name', attr: 'string' },
+    { key: 'lastName', name: 'Last Name', attr: 'string' },
+    { key: 'meeting', name: 'Meeting', attr: 'date' },
+    { key: 'status', name: 'Status', attr: 'string' },
+    { key: 'statusUpdateUser', name: 'Updated User', attr: 'string' },
+    { key: 'statusUpdateDate', name: 'Updated Date', attr: 'date' },
+    { key: 'receivedDate', name: 'Received Date', attr: 'date' },
+    { key: 'notes', name: 'Notes', attr: 'string' },
   ];
 
-  dataSource: MatTableDataSource<AppealsList> = new MatTableDataSource();
+  appealParams: AppealParams;
+  dataSource: MatTableDataSource<AppealList> = new MatTableDataSource();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -55,14 +56,7 @@ export class AppealComponent {
   }
 
   setTable() {
-    this.displayedColumns.push('actions');
     for (var col of this.columns) {
-      if (col.key == 'status') {
-        this.displayedColumns.push('meeting');
-      } else if (col.key == 'notes') {
-        this.displayedColumns.push('statusUpdateDate');
-        this.displayedColumns.push('receivedDate');
-      }
       this.displayedColumns.push(col.key);
     }
   }
@@ -89,7 +83,6 @@ export class AppealComponent {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.currentPage = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.loadAppeal();

@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppealDetailComponent } from './modules/pages/appeal-detail/appeal-detail.component';
 
 import { AppealComponent } from './modules/pages/appeal/appeal.component';
+import { AppealDetailComponent } from './modules/pages/appeal-detail/appeal-detail.component';
 import { HomeComponent } from './modules/pages/home/home.component';
+import { NotFoundComponent } from './modules/pages/not-found/not-found.component';
+import { TemplateComponent } from './modules/pages/template/template.component';
+import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'appeal', component: AppealComponent },
-  { path: 'appeal/:id', component: AppealDetailComponent }
+  { path: 'appeals', component: AppealComponent },
+  { path: 'appeals/:id', component: AppealDetailComponent },
+  { path: 'templates', component: TemplateComponent },
+  { path: 'templates/:id', component: TemplateDetailComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

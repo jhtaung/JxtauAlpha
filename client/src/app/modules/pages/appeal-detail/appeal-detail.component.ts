@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppealService } from 'src/app/core/services/appeal.service';
 import { AppealParams } from 'src/app/shared/models/appealParams';
-import { Appeals } from 'src/app/shared/models/appeals';
+import { Appeal } from 'src/app/shared/models/appeal';
 
 @Component({
   selector: 'app-appeal-detail',
@@ -10,8 +10,9 @@ import { Appeals } from 'src/app/shared/models/appeals';
   styleUrls: ['./appeal-detail.component.css']
 })
 export class AppealDetailComponent implements OnInit {
+  isLoading: boolean = false;
   id: number = 0;
-  data!: Appeals;
+  data!: Appeal;
   appealParams: AppealParams = new AppealParams();
   error: string = "";
 
@@ -25,7 +26,7 @@ export class AppealDetailComponent implements OnInit {
   }
 
   loadDetail() {
-
+    this.isLoading = true;
     this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) used convert int
       this.appealParams.id = this.id;
@@ -36,14 +37,14 @@ export class AppealDetailComponent implements OnInit {
           var appeals = response.result;
           if (appeals.length == 0) {
             this.error = 'appeal not found.';
-            return;
+          } else {
+            this.data = appeals[0];
           }
-
-          this.data = appeals[0];
-          // console.log('success', this.data);
+          this.isLoading = false;
         },
         error: error => {
           console.log('error', error);
+          this.isLoading = false;
         }
       });
     });
