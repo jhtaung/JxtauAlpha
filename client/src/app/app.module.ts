@@ -1,27 +1,32 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { MaterialModule } from './material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { MaterialModule } from './material.module';
 
+import { EditorComponent } from './modules/editor/editor.component';
+import { TableComponent } from './modules/table/table.component';
 import { NavComponent } from './modules/nav/nav.component';
+
 import { AppealComponent } from './modules/pages/appeal/appeal.component';
-import { HomeComponent } from './modules/pages/home/home.component';
 import { AppealDetailComponent } from './modules/pages/appeal-detail/appeal-detail.component';
+import { HomeComponent } from './modules/pages/home/home.component';
 import { NotFoundComponent } from './modules/pages/not-found/not-found.component';
 import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
-import { EditorModule } from '@tinymce/tinymce-angular';
-import { EditorComponent } from './modules/editor/editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    EditorComponent,
+    TableComponent,
     NavComponent,
     AppealComponent,
     AppealDetailComponent,
@@ -29,14 +34,14 @@ import { EditorComponent } from './modules/editor/editor.component';
     NotFoundComponent,
     TemplateComponent,
     TemplateDetailComponent,
-    EditorComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
-    EditorModule,
+    AngularEditorModule,
     MaterialModule
   ],
   providers: [

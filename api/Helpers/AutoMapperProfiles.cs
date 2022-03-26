@@ -19,6 +19,9 @@ namespace api.Helpers
                 .ForMember(d => d.Id, o => o.MapFrom(x => x.TemplateId))
                 .ForMember(d => d.Department, o => o.MapFrom(x => x.Department!.DepartmentName));
 
+            CreateMap<TemplateUpdateDto, Template>()
+                .ForMember(d => d.TemplateId, o => o.MapFrom(x => x.Id));
+
             CreateMap<Department, DepartmentDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.DepartmentId))
                 .ForMember(d => d.Code, o => o.MapFrom(s => s.DepartmentCode))

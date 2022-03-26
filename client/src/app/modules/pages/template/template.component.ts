@@ -12,6 +12,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   templateUrl: './template.component.html',
   styleUrls: ['./template.component.css']
 })
+
 export class TemplateComponent implements OnInit {
   isLoading: boolean = false;
   totalRows = 0;
@@ -67,8 +68,11 @@ export class TemplateComponent implements OnInit {
         console.log('response', response);
         this.dataSource.data = response.result;
         setTimeout(() => {
-          this.paginator.pageIndex = response.pagination.currentPage - 1;
-          this.paginator.length = response.pagination.totalItems;
+          // this.paginator.pageIndex = response.pagination.currentPage - 1;
+          // this.paginator.length = response.pagination.totalItems;
+
+          this.currentPage = response.pagination.currentPage - 1;
+          this.totalRows = response.pagination.totalItems;
         });
         this.isLoading = false;
       },

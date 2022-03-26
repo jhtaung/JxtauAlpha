@@ -1,4 +1,5 @@
 using api.DTOs;
+using api.Entities;
 using api.Extensions;
 using api.Helpers;
 using api.Interfaces;
@@ -31,9 +32,7 @@ namespace api.Controllers
         public async Task<ActionResult> Update(TemplateUpdateDto templateUpdateDto)
         {
             var template = await _unitOfWork.TemplateRepo.GetTemplateByIdAsync(templateUpdateDto.Id);
-
-            _mapper.Map(templateUpdateDto, template);
-
+            template = _mapper.Map(templateUpdateDto, template);
             template.CreateUser = "MPIDOM\\jhtaung";
             template.UpdateUser = "MPIDOM\\jhtaung";
             template.CreateDate = DateTime.Now;

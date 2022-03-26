@@ -44,3 +44,6 @@ Git
 WYSIWYG 
 - Tiny MCE
 - Angular Editor
+
+PowerShell
+- remove-item node_modules -Recurse -Force
