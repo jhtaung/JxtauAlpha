@@ -27,6 +27,8 @@ Angular - new project
 - ng add @angular/cdk
 - ng g s weather –skip-tests
 - ng g c modules/pages/page --module app
+- ng g interceptor core/interceptors/loading
+- ng g guard core/guards/auth
 
 Angular - resources
 - http://json2ts.com/

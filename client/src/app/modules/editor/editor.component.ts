@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-editor',
@@ -6,7 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  @Input() data: string = '';
+  @Input() ngModel: string = '';
+  @Output() ngModelChange = new EventEmitter<string>();
+
   config = {
     editable: true,
     spellcheck: true,

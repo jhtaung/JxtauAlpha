@@ -1,45 +1,88 @@
 <div class="grid-container">
   <h1 class="mat-h1">Template {{id}}</h1>
   <div *ngIf="error.length > 0">{{this.error}}</div>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <div *ngIf="data !== undefined">
-    <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Department</div>
-        <div fxFlex="85" class="col-val">{{data.department}}</div>
+    <form (ngSubmit)="updateTemplate()">
+      <div fxLayout="row">
+        <div fxFlex="15">
+          <button mat-raised-button type="button" class="jh-button" routerLink="/templates">
+            Back
+          </button>
+        </div>
+        <div fxFlex="40"></div>
+        <div fxFlex="15">
+          <button mat-raised-button type="submit" class="jh-button" color="primary">
+            Save
+          </button>
+        </div>
       </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Subject</div>
-        <div fxFlex="85" class="col-val">{{data.subjectTemplate}}</div>
+
+      <div fxLayout="fill">
+        <mat-card fxFlex="70" class="jh-card mat-elevation-z8">
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Department</div>
+            <div fxFlex="85" class="col-val">{{data.department}}</div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Subject</div>
+            <div fxFlex="85" class="col-val">
+              <angular-editor
+                [config]="config"
+                [(ngModel)]="data.subjectTemplate"
+                name="subjectTemplate"></angular-editor>
+            </div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Appeal</div>
+            <div fxFlex="85" class="col-val">
+              <angular-editor
+                [config]="config"
+                [(ngModel)]="data.appealInfoTemplate"
+                name="appealInfoTemplate"></angular-editor>
+            </div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Executive Summary</div>
+            <div fxFlex="85" class="col-val">
+              <angular-editor
+                [config]="config"
+                [(ngModel)]="data.execSummaryTemplate"
+                name="execSummaryTemplate"></angular-editor>
+            </div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Plan Reference</div>
+            <div fxFlex="85" class="col-val">
+              <angular-editor
+                [config]="config"
+                [(ngModel)]="data.planReferenceTemplate"
+                name="planReferenceTemplate"></angular-editor>
+            </div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Recommendations</div>
+            <div fxFlex="85" class="col-val">
+              <angular-editor
+                [config]="config"
+                [(ngModel)]="data.recommendationsTemplate"
+                name="recommendationsTemplate"></angular-editor>
+            </div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Create User</div>
+            <div fxFlex="15" class="col-val">{{data.createUser}}</div>
+            <div fxFlex="15" class="col-head">Create Date</div>
+            <div fxFlex="15" class="col-val">{{data.createDate | date: 'yyyy-MM-dd h:mm a'}}</div>
+          </div>
+          <div fxLayout="row" class="jh-row">
+            <div fxFlex="15" class="col-head">Update User</div>
+            <div fxFlex="15" class="col-val">{{data.updateUser}}</div>
+            <div fxFlex="15" class="col-head">Update Date</div>
+            <div fxFlex="15" class="col-val">{{data.updateDate | date: 'yyyy-MM-dd h:mm a'}}</div>
+          </div>
+        </mat-card>
       </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Appeal</div>
-        <div fxFlex="85" class="col-val"><app-editor [data]="data.appealInfoTemplate"></app-editor></div>
-      </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Executive Summary</div>
-        <div fxFlex="85" class="col-val"><app-editor [data]="data.execSummaryTemplate"></app-editor></div>
-      </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Plan Reference</div>
-        <div fxFlex="85" class="col-val"><app-editor [data]="data.planReferenceTemplate"></app-editor></div>
-      </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Recommendations</div>
-        <div fxFlex="85" class="col-val"><app-editor [data]="data.recommendationsTemplate"></app-editor></div>
-      </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Create User</div>
-        <div fxFlex="15" class="col-val">{{data.createUser}}</div>
-        <div fxFlex="15" class="col-head">Create Date</div>
-        <div fxFlex="15" class="col-val">{{data.createDate | date: 'yyyy-MM-dd h:mm a'}}</div>
-      </div>
-      <div fxLayout="row" class="jh-row">
-        <div fxFlex="15" class="col-head">Update User</div>
-        <div fxFlex="15" class="col-val">{{data.updateUser}}</div>
-        <div fxFlex="15" class="col-head">Update Date</div>
-        <div fxFlex="15" class="col-val">{{data.updateDate | date: 'yyyy-MM-dd h:mm a'}}</div>
-      </div>
-    </mat-card>
+    </form>
   </div>
 </div>

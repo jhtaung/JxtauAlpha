@@ -7,13 +7,21 @@ import { HomeComponent } from './modules/pages/home/home.component';
 import { NotFoundComponent } from './modules/pages/not-found/not-found.component';
 import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'appeals', component: AppealComponent },
-  { path: 'appeals/:id', component: AppealDetailComponent },
-  { path: 'templates', component: TemplateComponent },
-  { path: 'templates/:id', component: TemplateDetailComponent },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'appeals', component: AppealComponent },
+      { path: 'appeals/:id', component: AppealDetailComponent },
+      { path: 'templates', component: TemplateComponent },
+      { path: 'templates/:id', component: TemplateDetailComponent }
+    ]
+  },
   { path: '**', component: NotFoundComponent }
 ];
 

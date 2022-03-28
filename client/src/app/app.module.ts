@@ -1,15 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MaterialModule } from './material.module';
+
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 
 import { EditorComponent } from './modules/editor/editor.component';
 import { TableComponent } from './modules/table/table.component';
@@ -21,6 +22,7 @@ import { HomeComponent } from './modules/pages/home/home.component';
 import { NotFoundComponent } from './modules/pages/not-found/not-found.component';
 import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -40,12 +42,13 @@ import { TemplateDetailComponent } from './modules/pages/template-detail/templat
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AngularEditorModule,
     MaterialModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    // { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

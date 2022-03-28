@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TemplateService } from 'src/app/core/services/template.service';
 import { Template } from 'src/app/shared/models/template';
 import { TemplateParams } from 'src/app/shared/models/templateParams';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-template-detail',
@@ -10,6 +11,12 @@ import { TemplateParams } from 'src/app/shared/models/templateParams';
   styleUrls: ['./template-detail.component.css']
 })
 export class TemplateDetailComponent implements OnInit {
+  config = {
+    editable: true,
+    spellcheck: true,
+    minHeight: '100px',
+  };
+
   isLoading: boolean = false;
   id: number = 0;
   data!: Template;
@@ -18,7 +25,8 @@ export class TemplateDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private templateService: TemplateService
+    private templateService: TemplateService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +55,30 @@ export class TemplateDetailComponent implements OnInit {
         }
       });
     })
+  }
+
+  updateTemplate() {
+    console.log('update', this.data);
+    var templateUpdate = {
+      id: this.data.id,
+      subjectTemplate: this.data.subjectTemplate,
+      appealInfoTemplate: this.data.appealInfoTemplate,
+      planReferenceTemplate: this.data.planReferenceTemplate,
+      execSummaryTemplate: this.data.execSummaryTemplate,
+      recommendationsTemplate: this.data.recommendationsTemplate
+    };
+
+    this.templateService.updateTemplate(templateUpdate).subscribe({
+      next: response => {
+        console.log('success', response);
+        this.snackBar.open('Save Success', 'Close', { duration: 3000 });
+        this.load();
+      },
+      error: error => {
+        console.log('error', error);
+        this.snackBar.open('Save Error', 'Close');
+      }
+    });
   }
 
 }

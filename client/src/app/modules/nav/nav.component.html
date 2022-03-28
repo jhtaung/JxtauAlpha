@@ -12,15 +12,28 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()">
-        <!-- *ngIf="isHandset$ | async"> -->
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>{{title}}</span>
+      <div>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <!-- *ngIf="isHandset$ | async"> -->
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>{{title}}</span>
+      </div>
+      <span class="flexExpand"></span>
+      <div>
+        <div *ngIf="isLoggedIn; else loggedOut" class="jh-user">
+          Welcome {{user.name}}
+        </div>
+        <ng-template #loggedOut>
+          <button type="button" mat-icon-button (click)="login()">
+            Login
+          </button>
+        </ng-template>
+      </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
