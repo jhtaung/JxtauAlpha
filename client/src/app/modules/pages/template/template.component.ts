@@ -67,13 +67,8 @@ export class TemplateComponent implements OnInit {
       next: response => {
         console.log('response', response);
         this.dataSource.data = response.result;
-        setTimeout(() => {
-          // this.paginator.pageIndex = response.pagination.currentPage - 1;
-          // this.paginator.length = response.pagination.totalItems;
-
-          this.currentPage = response.pagination.currentPage - 1;
-          this.totalRows = response.pagination.totalItems;
-        });
+        this.currentPage = response.pagination.currentPage - 1;
+        this.totalRows = response.pagination.totalItems;
         this.isLoading = false;
       },
       error: error => {

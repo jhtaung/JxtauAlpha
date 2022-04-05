@@ -22,6 +22,7 @@ import { HomeComponent } from './modules/pages/home/home.component';
 import { NotFoundComponent } from './modules/pages/not-found/not-found.component';
 import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
+import { DepartmentComponent } from './modules/pages/department/department.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { TemplateDetailComponent } from './modules/pages/template-detail/templat
     NotFoundComponent,
     TemplateComponent,
     TemplateDetailComponent,
+    DepartmentComponent,
   ],
   imports: [
     AppRoutingModule,

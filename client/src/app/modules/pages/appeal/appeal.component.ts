@@ -46,13 +46,9 @@ export class AppealComponent {
     this.appealParams = this.appealService.getAppealParams();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   ngOnInit(): void {
     this.setTable();
-    this.loadAppeal();
+    this.load();
   }
 
   setTable() {
@@ -61,18 +57,17 @@ export class AppealComponent {
     }
   }
 
-  loadAppeal() {
+  load() {
     this.isLoading = true;
     this.appealParams.pageNumber = this.currentPage;
     this.appealParams.pageSize = this.pageSize;
     this.appealService.setAppealParams(this.appealParams);
     this.appealService.getAppealsList(this.appealParams).subscribe({
       next: response => {
+        console.log('response', response);
         this.dataSource.data = response.result;
-        setTimeout(() => {
-          this.paginator.pageIndex = response.pagination.currentPage - 1;
-          this.paginator.length = response.pagination.totalItems;
-        });
+        this.currentPage = response.pagination.currentPage - 1;
+        this.totalRows = response.pagination.totalItems;
         this.isLoading = false;
       },
       error: error => {
@@ -85,6 +80,6 @@ export class AppealComponent {
   pageChanged(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
     this.pageSize = event.pageSize;
-    this.loadAppeal();
+    this.load();
   }
 }

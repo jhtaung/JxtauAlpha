@@ -1,5 +1,4 @@
 using api.DTOs;
-using api.Entities;
 using api.Extensions;
 using api.Helpers;
 using api.Interfaces;
@@ -8,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
     public class TemplatesController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;

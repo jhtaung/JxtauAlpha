@@ -8,6 +8,7 @@ import { NotFoundComponent } from './modules/pages/not-found/not-found.component
 import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { DepartmentComponent } from './modules/pages/department/department.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
     children: [
       { path: 'appeals', component: AppealComponent },
       { path: 'appeals/:id', component: AppealDetailComponent },
+      { path: 'departments', component: DepartmentComponent },
       { path: 'templates', component: TemplateComponent },
       { path: 'templates/:id', component: TemplateDetailComponent }
     ]

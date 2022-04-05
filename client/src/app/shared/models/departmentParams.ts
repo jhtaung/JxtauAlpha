@@ -1,5 +1,5 @@
 import { PaginationParams } from "./pagination";
 
-export class TemplateParams extends PaginationParams {
+export class DepartmentParams extends PaginationParams {
   id: number = 0;
 }

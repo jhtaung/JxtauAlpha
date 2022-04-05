@@ -1,6 +1,6 @@
-export class AppealParams {
+import { PaginationParams } from "./pagination";
+
+export class AppealParams extends PaginationParams {
   id: number = 0;
   rap: string = "";
-  pageNumber: number = 1;
-  pageSize: number = 10;
 }
