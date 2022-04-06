@@ -1,6 +1,6 @@
 namespace api.DTOs
 {
-    public class AppealsDto
+    public class AppealDto
     {
         public int Id { get; set; }
         public string? Mpid { get; set; }

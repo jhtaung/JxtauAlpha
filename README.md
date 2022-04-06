@@ -49,3 +49,6 @@ WYSIWYG
 
 PowerShell
 - remove-item node_modules -Recurse -Force
+
+NPM
+- npm install

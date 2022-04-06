@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TemplateService } from 'src/app/core/services/template.service';
 import { Template } from 'src/app/shared/models/template';
-import { TemplateParams } from 'src/app/shared/models/templateParams';
+import { TemplateParams } from 'src/app/shared/models/template-params';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

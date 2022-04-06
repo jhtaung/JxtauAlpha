@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DepartmentService } from 'src/app/core/services/department.service';
 import { Department } from 'src/app/shared/models/department';
-import { DepartmentParams } from 'src/app/shared/models/departmentParams';
+import { DepartmentParams } from 'src/app/shared/models/department-params';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -16,6 +16,7 @@ import { MatSort } from '@angular/material/sort';
 export class DepartmentComponent implements OnInit {
   isLoading: boolean = false;
   totalRows = 0;
+  orderBy = "";
   pageSize = 10;
   currentPage = 1;
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -66,10 +67,11 @@ export class DepartmentComponent implements OnInit {
     this.isLoading = true;
     this.departmentParams.pageNumber = this.currentPage;
     this.departmentParams.pageSize = this.pageSize;
+    this.departmentParams.orderBy = this.orderBy;
     this.departmentService.setDepartmentParams(this.departmentParams);
     this.departmentService.getDepartments(this.departmentParams).subscribe({
       next: response => {
-        console.log(response);
+        // console.log(response);
         this.dataSource.data = response.result;
         this.currentPage = response.pagination.currentPage - 1;
         this.totalRows = response.pagination.totalItems;
@@ -93,6 +95,8 @@ export class DepartmentComponent implements OnInit {
   }
 
   doSort(event: any) {
-    console.log('event', event);
+    this.currentPage = this.departmentParams.pageNumber;
+    this.orderBy = event.active + "+" + event.direction;
+    this.load();
   }
 }

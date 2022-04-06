@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { AppealService } from 'src/app/core/services/appeal.service';
-import { AppealList } from 'src/app/shared/models/appealList';
-import { AppealParams } from 'src/app/shared/models/appealParams';
+import { AppealList } from 'src/app/shared/models/appeal-list';
+import { AppealParams } from 'src/app/shared/models/appeal-params';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -62,7 +62,7 @@ export class AppealComponent {
     this.appealParams.pageNumber = this.currentPage;
     this.appealParams.pageSize = this.pageSize;
     this.appealService.setAppealParams(this.appealParams);
-    this.appealService.getAppealsList(this.appealParams).subscribe({
+    this.appealService.getAppealList(this.appealParams).subscribe({
       next: response => {
         console.log('response', response);
         this.dataSource.data = response.result;

@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { AppealList } from 'src/app/shared/models/appealList';
-import { AppealParams } from 'src/app/shared/models/appealParams';
+import { AppealList } from 'src/app/shared/models/appeal-list';
+import { AppealParams } from 'src/app/shared/models/appeal-params';
 import { environment } from 'src/environments/environment';
-import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
+import { getPaginatedResult, getPaginationHeaders } from './pagination-helper';
 import { Appeal } from 'src/app/shared/models/appeal';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class AppealService {
     this.appealParams = params;
   }
 
-  getAppealsList(appealParams: AppealParams) {
+  getAppealList(appealParams: AppealParams) {
     let params = getPaginationHeaders(appealParams.pageNumber, appealParams.pageSize);
     params = params.append('rap', appealParams.rap);
     return getPaginatedResult<AppealList[]>(

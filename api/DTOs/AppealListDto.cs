@@ -1,6 +1,6 @@
 namespace api.DTOs
 {
-    public class AppealsListDto
+    public class AppealListDto
     {
         public int Id { get; set; }
         public bool? Rap { get; set; }

@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Template } from 'src/app/shared/models/template';
-import { TemplateParams } from 'src/app/shared/models/templateParams';
-import { TemplateUpdate } from 'src/app/shared/models/templateUpdate';
+import { TemplateParams } from 'src/app/shared/models/template-params';
+import { TemplateUpdate } from 'src/app/shared/models/template-update';
 import { environment } from 'src/environments/environment';
-import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
+import { getPaginatedResult, getPaginationHeaders } from './pagination-helper';
 
 @Injectable({
   providedIn: 'root'

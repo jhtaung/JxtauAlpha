@@ -4,7 +4,7 @@ namespace api.Helpers
     {
         public DepartmentParams()
         {
-            OrderBy = "DepartmentName";
+            
         }
     }
 }

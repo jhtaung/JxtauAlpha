@@ -23,7 +23,7 @@ import { NotFoundComponent } from './modules/pages/not-found/not-found.component
 import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
 import { DepartmentComponent } from './modules/pages/department/department.component';
-
+import { AxDocComponent } from './modules/pages/ax-doc/ax-doc.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { DepartmentComponent } from './modules/pages/department/department.compo
     TemplateComponent,
     TemplateDetailComponent,
     DepartmentComponent,
+    AxDocComponent,
   ],
   imports: [
     AppRoutingModule,

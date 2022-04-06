@@ -15,7 +15,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppealsListDto>>> Get([FromQuery]AppealParams appealParams)
+        public async Task<ActionResult<IEnumerable<AppealListDto>>> Get([FromQuery]AppealParams appealParams)
         {
             var appeals = await _unitOfWork.AppealRepo.GetAsync(appealParams);
             Response.AddPaginationHeader(appeals.CurrentPage, appeals.PageSize, appeals.TotalCount, appeals.TotalPages);
@@ -23,7 +23,7 @@ namespace api.Controllers
         }
 
         [HttpGet("List")]
-        public async Task<ActionResult<IEnumerable<AppealsListDto>>> GetList([FromQuery]AppealParams appealParams)
+        public async Task<ActionResult<IEnumerable<AppealListDto>>> GetList([FromQuery]AppealParams appealParams)
         {
             var appeals = await _unitOfWork.AppealRepo.GetListAsync(appealParams);
             Response.AddPaginationHeader(appeals.CurrentPage, appeals.PageSize, appeals.TotalCount, appeals.TotalPages);

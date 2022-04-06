@@ -8,8 +8,8 @@ namespace api.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AppealsDto, AppealsDto>();
-            CreateMap<AppealsListDto, AppealsListDto>();
+            CreateMap<AppealDto, AppealDto>();
+            CreateMap<AppealListDto, AppealListDto>();
             CreateMap<UspGetAppeals, UspGetAppealsDto>()
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.AppealId))
                 .ForMember(d => d.Dept, o => o.MapFrom(s => s.DepartmentCode))

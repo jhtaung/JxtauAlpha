@@ -8,20 +8,22 @@ import { User } from 'src/app/shared/models/user';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
-  title: string = "Benefits Appeal Committee";
+  title: string = 'Benefits Appeal Committee';
   menuItems = [
     { key: '', name: 'Home' },
+    { key: 'ax-docs', name: 'AX Docs' },
     { key: 'appeals', name: 'Appeals' },
-    { key: 'templates', name: 'Templates' },
     { key: 'departments', name: 'Departments' },
-    { key: 'meetings', name: 'Meetings' }
+    { key: 'meetings', name: 'Meetings' },
+    { key: 'templates', name: 'Templates' },
   ];
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     );
 
@@ -30,7 +32,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private accountService: AccountService) {}
+    private accountService: AccountService
+  ) {}
 
   ngOnInit(): void {
     this.load();
@@ -54,10 +57,10 @@ export class NavComponent implements OnInit {
         this.load();
         return true;
       },
-      error: error => {
+      error: (error) => {
         console.log('error', error);
         return false;
-      }
+      },
     });
   }
 }

@@ -17,7 +17,7 @@ namespace api.Data
             _mapper = mapper;
         }
 
-        public async Task<PagedList<AppealsDto>> GetAsync(AppealParams appealParams)
+        public async Task<PagedList<AppealDto>> GetAsync(AppealParams appealParams)
         {
             var query = 
                 from appeal in _context.Appeals
@@ -45,7 +45,7 @@ namespace api.Data
                 from contactType in _context.ContactTypes
                     .Where(x => x.ContactTypeId == contact.ContactTypeId)
                     .DefaultIfEmpty()
-                select new AppealsDto
+                select new AppealDto
                 {
                     Id = appeal.AppealId,
                     Mpid = appeal.Mpid,
@@ -93,14 +93,14 @@ namespace api.Data
 
             query = query.OrderByDescending(x => x.Id);
 
-            return await PagedList<AppealsDto>.CreateAsync(
-                query.ProjectTo<AppealsDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+            return await PagedList<AppealDto>.CreateAsync(
+                query.ProjectTo<AppealDto>(_mapper.ConfigurationProvider).AsNoTracking(),
                 appealParams.PageNumber, 
                 appealParams.PageSize
             );
         }
 
-        public async Task<PagedList<AppealsListDto>> GetListAsync(AppealParams appealParams)
+        public async Task<PagedList<AppealListDto>> GetListAsync(AppealParams appealParams)
         {
             var query = 
                 from appeal in _context.Appeals
@@ -118,7 +118,7 @@ namespace api.Data
                     on appeal.AppealId equals contacts.AppealId into leftContacts
                 from contact in leftContacts.DefaultIfEmpty()
                 orderby appeal.AppealId descending
-                select new AppealsListDto
+                select new AppealListDto
                 {
                     Id = appeal.AppealId,
                     Rap = appeal.Rap,
@@ -140,8 +140,8 @@ namespace api.Data
                 query = query.Where(x => x.Rap == appealParams.Rap); 
             }
 
-            return await PagedList<AppealsListDto>.CreateAsync(
-                query.ProjectTo<AppealsListDto>(_mapper.ConfigurationProvider).AsNoTracking(),
+            return await PagedList<AppealListDto>.CreateAsync(
+                query.ProjectTo<AppealListDto>(_mapper.ConfigurationProvider).AsNoTracking(),
                 appealParams.PageNumber, 
                 appealParams.PageSize
             );

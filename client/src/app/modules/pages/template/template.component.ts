@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { TemplateService } from 'src/app/core/services/template.service';
 import { Template } from 'src/app/shared/models/template';
-import { TemplateParams } from 'src/app/shared/models/templateParams';
+import { TemplateParams } from 'src/app/shared/models/template-params';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';

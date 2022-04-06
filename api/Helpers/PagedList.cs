@@ -1,4 +1,3 @@
-using api.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Helpers
@@ -18,6 +17,7 @@ namespace api.Helpers
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
+        public string OrderBy { get; set; } = "";
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {

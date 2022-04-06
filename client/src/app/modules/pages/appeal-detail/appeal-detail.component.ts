@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppealService } from 'src/app/core/services/appeal.service';
-import { AppealParams } from 'src/app/shared/models/appealParams';
+import { AppealParams } from 'src/app/shared/models/appeal-params';
 import { Appeal } from 'src/app/shared/models/appeal';
 
 @Component({

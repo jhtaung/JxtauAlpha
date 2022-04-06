@@ -9,6 +9,7 @@ import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { DepartmentComponent } from './modules/pages/department/department.component';
+import { AxDocComponent } from './modules/pages/ax-doc/ax-doc.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     children: [
       { path: 'appeals', component: AppealComponent },
       { path: 'appeals/:id', component: AppealDetailComponent },
+      { path: 'ax-docs', component: AxDocComponent },
       { path: 'departments', component: DepartmentComponent },
       { path: 'templates', component: TemplateComponent },
       { path: 'templates/:id', component: TemplateDetailComponent }
