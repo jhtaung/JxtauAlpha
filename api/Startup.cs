@@ -16,6 +16,7 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices(_config);
+            services.AddHttpClient();
             services.AddControllers();
             services.AddCors();
             services.AddSwaggerGen(c => {

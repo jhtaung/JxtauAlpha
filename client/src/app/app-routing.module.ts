@@ -10,6 +10,7 @@ import { TemplateDetailComponent } from './modules/pages/template-detail/templat
 import { AuthGuard } from './core/guards/auth.guard';
 import { DepartmentComponent } from './modules/pages/department/department.component';
 import { AxDocComponent } from './modules/pages/ax-doc/ax-doc.component';
+import { EformUserComponent } from './modules/pages/eform-user/eform-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,9 +19,10 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
+      { path: 'ax-docs', component: AxDocComponent },
+      { path: 'eform-users', component: EformUserComponent },
       { path: 'appeals', component: AppealComponent },
       { path: 'appeals/:id', component: AppealDetailComponent },
-      { path: 'ax-docs', component: AxDocComponent },
       { path: 'departments', component: DepartmentComponent },
       { path: 'templates', component: TemplateComponent },
       { path: 'templates/:id', component: TemplateDetailComponent }

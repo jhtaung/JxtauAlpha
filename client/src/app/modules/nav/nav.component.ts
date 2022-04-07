@@ -15,6 +15,7 @@ export class NavComponent implements OnInit {
   menuItems = [
     { key: '', name: 'Home' },
     { key: 'ax-docs', name: 'AX Docs' },
+    { key: 'eform-users', name: 'Eform Users' },
     { key: 'appeals', name: 'Appeals' },
     { key: 'departments', name: 'Departments' },
     { key: 'meetings', name: 'Meetings' },

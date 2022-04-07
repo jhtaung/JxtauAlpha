@@ -24,6 +24,7 @@ import { TemplateComponent } from './modules/pages/template/template.component';
 import { TemplateDetailComponent } from './modules/pages/template-detail/template-detail.component';
 import { DepartmentComponent } from './modules/pages/department/department.component';
 import { AxDocComponent } from './modules/pages/ax-doc/ax-doc.component';
+import { EformUserComponent } from './modules/pages/eform-user/eform-user.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AxDocComponent } from './modules/pages/ax-doc/ax-doc.component';
     TemplateDetailComponent,
     DepartmentComponent,
     AxDocComponent,
+    EformUserComponent,
   ],
   imports: [
     AppRoutingModule,
